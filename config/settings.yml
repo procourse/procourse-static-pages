@@ -1,0 +1,4 @@
+plugins:
+  dl_static_pages_enabled:
+    default: true
+    client: true

@@ -1,0 +1,19 @@
+en:
+  js:
+    admin:
+      dl_static_pages:
+        index: "Products"
+        find: "Find Users"
+        enabled: "Enabled Keys"
+        disabled: "Disabled Keys"
+        unused: "Unused Keys"
+        products:
+          title: "Products"
+          id: "ID"
+          id_description: "This ID number will be used in your ajax call to validate a product."
+          group_description: "Any time a member is added to this group, they will receive a new license key or have their previous key re-enabled. When a user is removed from this group, their key will be disabled."
+          no_products: "No Products Available"
+          new_name: "New Product"
+          delete_confirm: "Delete this product?"
+    dl_static_pages:
+      title: "Pages"

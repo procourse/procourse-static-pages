@@ -1,0 +1,1 @@
+All support documentation, bug reports, and roadmap are discussed at [discourseleague.com](https://discourseleague.com).
