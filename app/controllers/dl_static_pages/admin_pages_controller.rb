@@ -3,15 +3,12 @@ module DlStaticPages
     requires_plugin 'dl-static-pages'
 
     def create
-      pages = PluginStore.get("dl_static_pages", "pages")
+      pages = PluginStore.get("dl_static_pages", "pages") || []
 
-      if pages.nil?
-        pages = []
+      if pages.empty?
         id = 1
       else
-        until pages.select{|page| page[:id] == id}.empty?
-          id = SecureRandom.random_number(10000)
-        end
+        id = pages[-1][:id] + 1
       end
 
       new_page = { 
@@ -32,7 +29,7 @@ module DlStaticPages
 
     def update
       pages = PluginStore.get("dl_static_pages", "pages")
-      page = pages.select{|page| page[:id] == id}
+      page = pages.select{|page| page[:id] == params[:page][:id]}
 
       if page.empty?
         render_json_error(page)

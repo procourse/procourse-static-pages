@@ -2,7 +2,7 @@ import Page from '../models/page';
 import { licensed } from 'discourse/plugins/dl-static-pages/discourse/lib/constraint';
 
 export default Ember.Controller.extend({
-  
+
   pageURL: document.location.origin + "/p/",
 
   licensed: licensed(),
@@ -128,7 +128,7 @@ export default Ember.Controller.extend({
 
       return bootbox.confirm(I18n.t("admin.dl_static_pages.pages.delete_confirm"), I18n.t("no_value"), I18n.t("yes_value"), function(result) {
         if (result) {
-          if (item.get('newRecord')) {
+          if (!item.get('id')) {
             self.removeSelected();
           } else {
             Page.destroy(self.get('selectedItem')).then(function(){ self.removeSelected(); });

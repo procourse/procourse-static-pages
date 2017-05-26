@@ -32,7 +32,7 @@ StaticPage.reopenClass({
 
   findAll: function() {
     var staticPages = StaticPages.create({ content: [], loading: true });
-    ajax('/p/admin/pages.json').then(function(pages) {
+    ajax('/dl-static-pages/admin/pages.json').then(function(pages) {
       if (pages){
         _.each(pages, function(staticPage){
             staticPages.pushObject(StaticPage.create({
@@ -72,8 +72,8 @@ StaticPage.reopenClass({
       data.custom_slug = object.custom_slug;
     };
     
-    return ajax("/p/admin/pages.json", {
-      data: JSON.stringify({"league_page": data}),
+    return ajax("/dl-static-pages/admin/pages.json", {
+      data: JSON.stringify({"page": data}),
       type: object.id ? 'PUT' : 'POST',
       dataType: 'json',
       contentType: 'application/json'
@@ -85,7 +85,7 @@ StaticPage.reopenClass({
   },
 
   copy: function(object){
-    var copiedPage = LeaguePage.create(object);
+    var copiedPage = StaticPage.create(object);
     copiedPage.id = null;
     return copiedPage;
   },
@@ -93,7 +93,7 @@ StaticPage.reopenClass({
   destroy: function(object) {
     if (object.id) {
       var data = { id: object.id };
-      return ajax("/p/admin/pages.json", { 
+      return ajax("/dl-static-pages/admin/pages.json", { 
         data: JSON.stringify({"page": data }), 
         type: 'DELETE',
         dataType: 'json',

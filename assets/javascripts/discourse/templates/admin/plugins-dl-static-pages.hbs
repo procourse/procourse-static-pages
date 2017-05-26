@@ -2,7 +2,7 @@
 <div class="customize dl-static-pages admin">
   <div class="admin-container">
     <div class='content-list span6'>
-      <h3>{{i18n 'admin.dl_static_pages.titles.pages'}}</h3>
+      <h3>{{i18n 'dl_static_pages.title'}}</h3>
       <ul>
       {{#each model as |page|}}
         <li><a {{action "selectDLPage" page}} class="{{if page.selected 'active'}}">{{page.title}}</a></li>

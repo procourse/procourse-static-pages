@@ -2,18 +2,14 @@ en:
   js:
     admin:
       dl_static_pages:
-        index: "Products"
-        find: "Find Users"
-        enabled: "Enabled Keys"
-        disabled: "Disabled Keys"
-        unused: "Unused Keys"
-        products:
-          title: "Products"
+        pages:
+          new_title: "New Page"
           id: "ID"
-          id_description: "This ID number will be used in your ajax call to validate a product."
-          group_description: "Any time a member is added to this group, they will receive a new license key or have their previous key re-enabled. When a user is removed from this group, their key will be disabled."
-          no_products: "No Products Available"
-          new_name: "New Product"
-          delete_confirm: "Delete this product?"
+          page_url_description: "Public page URL"
+          slug: "Slug"
+          slug_description: "The end of the URL for the page."
+          delete_confirm: "Delete this page?"
+          no_pages: "Add some pages for your users."
+          no_page_selected: "No page selected."
     dl_static_pages:
       title: "Static Pages"
