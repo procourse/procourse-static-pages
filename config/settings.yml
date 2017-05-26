@@ -2,3 +2,7 @@ plugins:
   dl_static_pages_enabled:
     default: true
     client: true
+  dl_static_pages_licensed:
+    default: false
+    client: true
+    hidden: true

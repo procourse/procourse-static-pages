@@ -4,7 +4,7 @@ module DlStaticPages
 
     config.after_initialize do
   		Discourse::Application.routes.append do
-  			mount ::DlStaticPages::Engine, at: "/pages"
+  			mount ::DlStaticPages::Engine, at: "/p"
   		end
     end
   end

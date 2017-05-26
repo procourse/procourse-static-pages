@@ -16,4 +16,4 @@ en:
           new_name: "New Product"
           delete_confirm: "Delete this product?"
     dl_static_pages:
-      title: "Pages"
+      title: "Static Pages"

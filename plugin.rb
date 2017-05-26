@@ -6,11 +6,12 @@
 
 enabled_site_setting :dl_static_pages_enabled
 
-add_admin_route 'dl_static_pages.title', 'pages'
+add_admin_route 'dl_static_pages.title', 'dl-static-pages'
 
 register_asset "stylesheets/dl-static-pages.scss"
 
 Discourse::Application.routes.append do
+  get '/admin/plugins/dl-static-pages' => 'admin/plugins#index', constraints: StaffConstraint.new
 end
 
-load File.expand_path('../lib/dl_license_keys/engine.rb', __FILE__)
+load File.expand_path('../lib/dl_static_pages/engine.rb', __FILE__)

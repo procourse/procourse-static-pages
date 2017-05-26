@@ -1,0 +1,60 @@
+{{#conditional-loading-spinner condition=model.loading}}
+<div class="customize dl-static-pages admin">
+  <div class="admin-container">
+    <div class='content-list span6'>
+      <h3>{{i18n 'admin.dl_static_pages.titles.pages'}}</h3>
+      <ul>
+      {{#each model as |page|}}
+        <li><a {{action "selectDLPage" page}} class="{{if page.selected 'active'}}">{{page.title}}</a></li>
+      {{/each}}
+      </ul>
+      {{#unless model}}
+        <p class="desc">{{i18n 'admin.dl_static_pages.pages.no_pages'}}</p>
+      {{/unless}}
+      {{d-button class="btn"
+                 action="newDLPage"
+                 label="admin.customize.new"
+                 icon="plus"}}
+    </div>
+    {{#if selectedItem.selected}}
+    <div class="show-current-style color-scheme">
+      <div class='admin-container'>
+          <h1>{{text-field class="style-name" value=selectedItem.title}}</h1>
+          <div class="controls">
+          <button {{action "save"}} disabled={{disableSave}} class='btn'>{{i18n 'admin.customize.save'}}</button>
+          <button {{action "toggleEnabled"}} disabled={{disableEnable}} class="btn">
+            {{#if selectedItem.active}}
+              {{i18n 'disable'}}
+            {{else}}
+              {{i18n 'enable'}}
+            {{/if}}
+          </button>
+          <button {{action "copy" selectedItem}} class='btn'><i class="fa fa-copy"></i> {{i18n 'admin.customize.copy'}}</button>
+          <button {{action "destroy"}} class='btn btn-danger'><i class="fa fa-trash-o"></i> {{i18n 'admin.customize.delete'}}</button>
+          <span class="saving {{unless selectedItem.savingStatus 'hidden'}}">{{selectedItem.savingStatus}}</span>
+        </div>
+        </div>
+        <br>
+        <form class="form-horizontal">
+        {{#if selectedItem.id}}
+        <div>
+          <label>{{i18n 'admin.dl_static_pages.pages.id'}}: {{ selectedItem.id }}</label>
+          <p class="help">{{i18n 'admin.dl_static_pages.pages.page_url_description'}}: <a target="_blank" href="{{pageURL}}{{selectedItem.slug}}/{{selectedItem.id}}/">{{pageURL}}{{selectedItem.slug}}/{{selectedItem.id}}/</a></p>
+        </div>
+        {{/if}}
+        <div>
+          <label>{{i18n 'admin.dl_static_pages.pages.slug'}}</label>
+          {{text-field class="style-name" value=selectedItem.slug enter=editSlug}}
+          <p class="help">{{i18n 'admin.dl_static_pages.pages.slug_description'}}</p>
+        </div>
+      <div>
+        {{d-editor value=selectedItem.raw class="raw-bio"}}
+        </div>
+        </form>
+    </div>
+    {{else}}
+      <div class="current-style color-scheme badges">{{i18n 'admin.dl_static_pages.pages.no_page_selected'}}</div>
+    {{/if}}
+  </div>
+</div>
+{{/conditional-loading-spinner}}
