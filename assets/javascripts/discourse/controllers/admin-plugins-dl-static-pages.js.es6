@@ -3,7 +3,7 @@ import { licensed } from 'discourse/plugins/dl-static-pages/discourse/lib/constr
 
 export default Ember.Controller.extend({
 
-  pageURL: document.location.origin + "/p/",
+  pageURL: document.location.origin + "/page/",
 
   licensed: licensed(),
 

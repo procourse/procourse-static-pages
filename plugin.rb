@@ -12,6 +12,8 @@ register_asset "stylesheets/dl-static-pages.scss"
 
 Discourse::Application.routes.append do
   get '/admin/plugins/dl-static-pages' => 'admin/plugins#index', constraints: StaffConstraint.new
+  get '/page/:slug/:id' => 'dl_static_pages/pages#show'
+  get '/page/:id' => 'dl_static_pages/pages#show'
 end
 
 load File.expand_path('../lib/dl_static_pages/engine.rb', __FILE__)
