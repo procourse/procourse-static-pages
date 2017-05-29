@@ -2,6 +2,9 @@ plugins:
   dl_static_pages_enabled:
     default: true
     client: true
+  dl_static_pages_license_key:
+    default: ""
+    client: false
   dl_static_pages_licensed:
     default: false
     client: true

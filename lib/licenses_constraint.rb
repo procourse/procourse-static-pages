@@ -1,5 +1,5 @@
 class LicensesConstraint
 	def matches?(request)
-		SiteSetting.dl_static_pages_enabled
+		SiteSetting.dl_static_pages_licensed
 	end
 end
