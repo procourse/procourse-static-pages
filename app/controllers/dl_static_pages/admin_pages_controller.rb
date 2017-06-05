@@ -3,13 +3,7 @@ module DlStaticPages
     requires_plugin 'dl-static-pages'
 
     def create
-      pages = PluginStore.get("dl_static_pages", "pages") || []
-
-      if pages.empty?
-        id = 1
-      else
-        id = pages[-1][:id] + 1
-      end
+      id = PluginStore.get("dl_static_pages", "p:id") || 1
 
       new_page = { 
         id: id, 
@@ -20,28 +14,26 @@ module DlStaticPages
         cooked: params[:page][:cooked], 
         custom_slug: params[:page][:custom_slug]
       }
-
-      pages.push(new_page)
-      PluginStore.set("dl_static_pages", "pages", pages)
+      PluginStore.set("dl_static_pages", "p:" + id.to_s, new_page)
+      PluginStore.set("dl_static_pages", "p:id", id + 1)
 
       render json: new_page, root: false
     end
 
     def update
-      pages = PluginStore.get("dl_static_pages", "pages")
-      page = pages.select{|page| page[:id] == params[:page][:id]}
+      page = PluginStore.get("dl_static_pages", "p:" + params[:page][:id].to_s)
 
-      if page.empty?
+      if page.nil?
         render_json_error(page)
       else
-        page[0][:active] = params[:page][:active] if !params[:page][:active].nil?
-        page[0][:title] = params[:page][:title] if !params[:page][:title].nil?
-        page[0][:slug] = params[:page][:slug] if !params[:page][:slug].nil?
-        page[0][:raw] = params[:page][:raw] if !params[:page][:raw].nil?
-        page[0][:cooked] = params[:page][:cooked] if !params[:page][:cooked].nil?
-        page[0][:custom_slug] = params[:page][:custom_slug] if !params[:page][:custom_slug].nil?
+        page[:active] = params[:page][:active] if !params[:page][:active].nil?
+        page[:title] = params[:page][:title] if !params[:page][:title].nil?
+        page[:slug] = params[:page][:slug] if !params[:page][:slug].nil?
+        page[:raw] = params[:page][:raw] if !params[:page][:raw].nil?
+        page[:cooked] = params[:page][:cooked] if !params[:page][:cooked].nil?
+        page[:custom_slug] = params[:page][:custom_slug] if !params[:page][:custom_slug].nil?
 
-        PluginStore.set("dl_static_pages", "pages", pages)
+        PluginStore.set("dl_static_pages", "p:" + params[:page][:id].to_s, page)
 
         render json: page, root: false
       end
@@ -60,7 +52,9 @@ module DlStaticPages
     end
 
     def show
-      pages = PluginStore.get("dl_static_pages", "pages")
+      pages = PluginStoreRow.where(plugin_name: "dl_static_pages")
+        .where("key LIKE 'p:%'")
+        .where("key != 'p:id'")
       render_json_dump(pages)
     end
 

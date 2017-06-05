@@ -3,12 +3,11 @@ module DlStaticPages
 
     def show
       if params[:id]
-        pages = PluginStore.get("dl_static_pages", "pages") || []
-        page = pages.select{|page| page[:id] == params[:id].to_i}
+        page = PluginStore.get("dl_static_pages", "p:" + params[:id])
       end
 
-      if !page.empty? && page[0][:active]
-        render_json_dump(page[0])
+      if page && page[:active]
+        render_json_dump(page)
       else
         render nothing: true, status: 404
       end

@@ -35,14 +35,15 @@ StaticPage.reopenClass({
     ajax('/dl-static-pages/admin/pages.json').then(function(pages) {
       if (pages){
         _.each(pages, function(staticPage){
+          var page = JSON.parse(staticPage.value);
             staticPages.pushObject(StaticPage.create({
-            id: staticPage.id,
-            title: staticPage.title,
-            active: staticPage.active,
-            slug: staticPage.slug,
-            raw: staticPage.raw,
-            cooked: staticPage.cooked,
-            custom_slug: staticPage.custom_slug
+            id: page.id,
+            title: page.title,
+            active: page.active,
+            slug: page.slug,
+            raw: page.raw,
+            cooked: page.cooked,
+            custom_slug: page.custom_slug
           }));
         });
       };
