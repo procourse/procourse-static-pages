@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'net/http'
+
 module DlStaticPages
   class Engine < ::Rails::Engine
     isolate_namespace DlStaticPages
@@ -6,12 +9,29 @@ module DlStaticPages
   		Discourse::Application.routes.append do
   			mount ::DlStaticPages::Engine, at: "/dl-static-pages"
   		end
+
+      module ::Jobs
+        class StaticPagesConfirmValidKey < Jobs::Scheduled
+          every 1.days
+
+          def execute(args)
+            validate_url = "https://discourseleague.com/licenses/validate?id=14744&key" + SiteSetting.dl_static_pages_licensed
+            request = Net::HTTP.get(URI.parse(validate_url))
+            result = JSON.parse(request)
+            
+            if result["enabled"]
+              SiteSetting.dl_static_pages_licensed = true
+            else
+              SiteSetting.dl_static_pages_licensed = false
+            end
+          end
+
+        end
+      end
+
     end
   end
 end
-
-require 'open-uri'
-require 'net/http'
 
 DiscourseEvent.on(:site_setting_saved) do |site_setting|
   if site_setting.name.to_s == "dl_static_pages_license_key" && site_setting.value_changed?
