@@ -1,4 +1,7 @@
 en:
+  dl_static_pages:
+    admin:
+      not_licensed_message: 'You need to license the Static Pages plugin to add more than two static pages. You can <a href="">purchase a key on the Discourse League site</a>.'
   js:
     admin:
       dl_static_pages:

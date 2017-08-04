@@ -44,6 +44,7 @@ DiscourseEvent.on(:site_setting_saved) do |site_setting|
       result = JSON.parse(request)
       
       if result["errors"]
+        SiteSetting.dl_static_pages_licensed = false
         raise Discourse::InvalidParameters.new(
           'Sorry. That key is invalid.'
         )

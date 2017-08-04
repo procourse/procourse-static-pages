@@ -78,10 +78,16 @@ StaticPage.reopenClass({
       type: object.id ? 'PUT' : 'POST',
       dataType: 'json',
       contentType: 'application/json'
+    }).catch(function(result){
+      if (result.jqXHR.responseJSON && result.jqXHR.responseJSON.errors && result.jqXHR.responseJSON.errors[0]){
+        return bootbox.alert(result.jqXHR.responseJSON.errors[0]);
+      }
     }).then(function(result) {
-      if(result.id) { object.set('id', result.id); }
-      object.set('savingStatus', I18n.t('saved'));
-      object.set('saving', false);
+      if(result.id) { 
+        object.set('id', result.id);
+        object.set('savingStatus', I18n.t('saved'));
+        object.set('saving', false);
+      };
     });
   },
 

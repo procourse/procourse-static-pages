@@ -3,21 +3,29 @@ module DlStaticPages
     requires_plugin 'dl-static-pages'
 
     def create
-      id = PluginStore.get("dl_static_pages", "p:id") || 1
+      pages = PluginStoreRow.where(plugin_name: "dl_static_pages")
+        .where("key LIKE 'p:%'")
+        .where("key != 'p:id'")
 
-      new_page = { 
-        id: id, 
-        active: params[:page][:active], 
-        title: params[:page][:title], 
-        slug: params[:page][:slug], 
-        raw: params[:page][:raw], 
-        cooked: params[:page][:cooked], 
-        custom_slug: params[:page][:custom_slug]
-      }
-      PluginStore.set("dl_static_pages", "p:" + id.to_s, new_page)
-      PluginStore.set("dl_static_pages", "p:id", id + 1)
+      if pages.length >= 2 and !SiteSetting.dl_static_pages_licensed
+        render_json_error(I18n.t('dl_static_pages.admin.not_licensed_message'))
+      else
+        id = PluginStore.get("dl_static_pages", "p:id") || 1
 
-      render json: new_page, root: false
+        new_page = { 
+          id: id, 
+          active: params[:page][:active], 
+          title: params[:page][:title], 
+          slug: params[:page][:slug], 
+          raw: params[:page][:raw], 
+          cooked: params[:page][:cooked], 
+          custom_slug: params[:page][:custom_slug]
+        }
+        PluginStore.set("dl_static_pages", "p:" + id.to_s, new_page)
+        PluginStore.set("dl_static_pages", "p:id", id + 1)
+
+        render json: new_page, root: false
+      end
     end
 
     def update
@@ -40,15 +48,14 @@ module DlStaticPages
     end
 
     def destroy
-      pages = PluginStore.get("dl_static_pages", "pages")
+      page = PluginStoreRow.find_by(:key => "p:" + params[:page][:id].to_s)
 
-      page = pages.select{|page| page[:id] == params[:page][:id]}
-
-      pages.delete(page[0])
-
-      PluginStore.set("dl_static_pages", "pages", pages)
-
-      render json: success_json
+      if page
+        page.destroy
+        render json: success_json
+      else
+        render_json_error(page)
+      end
     end
 
     def show
