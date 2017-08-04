@@ -15,10 +15,9 @@ module DlStaticPages
           every 1.days
 
           def execute(args)
-            validate_url = "https://discourseleague.com/licenses/validate?id=14744&key" + SiteSetting.dl_static_pages_licensed
+            validate_url = "https://discourseleague.com/licenses/validate?id=14744&key=" + SiteSetting.dl_static_pages_license_key
             request = Net::HTTP.get(URI.parse(validate_url))
             result = JSON.parse(request)
-            
             if result["enabled"]
               SiteSetting.dl_static_pages_licensed = true
             else
@@ -42,9 +41,7 @@ DiscourseEvent.on(:site_setting_saved) do |site_setting|
       validate_url = "https://discourseleague.com/licenses/validate?id=14744&key=" + site_setting.value
       request = Net::HTTP.get(URI.parse(validate_url))
       result = JSON.parse(request)
-      
       if result["errors"]
-        SiteSetting.dl_static_pages_licensed = false
         raise Discourse::InvalidParameters.new(
           'Sorry. That key is invalid.'
         )
