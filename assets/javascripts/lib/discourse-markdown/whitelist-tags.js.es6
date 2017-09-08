@@ -7,5 +7,8 @@ export function setup(helper) {
                   'button.btn',
                   'button.btn btn-primary',
                   'button.btn btn-danger',
+                  'ul.nav',
+                  'ul.nav-pills',
+                  'ul.nav nav-pills'
                   ]);
 }
