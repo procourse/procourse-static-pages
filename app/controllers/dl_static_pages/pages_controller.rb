@@ -9,7 +9,7 @@ module DlStaticPages
       if page && page[:active]
         render_json_dump(page)
       else
-        render nothing: true, status: 404
+        render body: nil, status: 404
       end
 
     end
