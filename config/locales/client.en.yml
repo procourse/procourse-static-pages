@@ -11,6 +11,8 @@ en:
           page_url_description: "Public page URL"
           slug: "Slug"
           slug_description: "The end of the URL for the page."
+          html: "Use HTML?"
+          html_description: "Use raw html instead of the markdown editor?"
           delete_confirm: "Delete this page?"
           no_pages: "Add some pages for your users."
           no_page_selected: "No page selected."

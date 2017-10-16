@@ -19,7 +19,9 @@ module DlStaticPages
           slug: params[:page][:slug], 
           raw: params[:page][:raw], 
           cooked: params[:page][:cooked], 
-          custom_slug: params[:page][:custom_slug]
+          custom_slug: params[:page][:custom_slug],
+          html: params[:page][:html],
+          html_content: params[:page][:html_content]
         }
         PluginStore.set("dl_static_pages", "p:" + id.to_s, new_page)
         PluginStore.set("dl_static_pages", "p:id", id + 1)
@@ -40,6 +42,8 @@ module DlStaticPages
         page[:raw] = params[:page][:raw] if !params[:page][:raw].nil?
         page[:cooked] = params[:page][:cooked] if !params[:page][:cooked].nil?
         page[:custom_slug] = params[:page][:custom_slug] if !params[:page][:custom_slug].nil?
+        page[:html] = params[:page][:html] if !params[:page][:html].nil?
+        page[:html_content] = params[:page][:html_content] if !params[:page][:html_content].nil?
 
         PluginStore.set("dl_static_pages", "p:" + params[:page][:id].to_s, page)
 
@@ -69,7 +73,7 @@ module DlStaticPages
     private
 
     def page_params
-      params.permit(page: [:active, :title, :slug, :raw, :cooked, :custom_slug])[:page]
+      params.permit(page: [:active, :title, :slug, :raw, :cooked, :custom_slug, :html, :html_content])[:page]
     end
 
   end

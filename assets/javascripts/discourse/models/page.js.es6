@@ -43,7 +43,9 @@ StaticPage.reopenClass({
             slug: page.slug,
             raw: page.raw,
             cooked: page.cooked,
-            custom_slug: page.custom_slug
+            custom_slug: page.custom_slug,
+            html: page.html,
+            html_content: page.html_content
           }));
         });
       };
@@ -65,12 +67,19 @@ StaticPage.reopenClass({
     }
 
     if (!object || !enabledOnly) {
-      var cooked = new Handlebars.SafeString(new PrettyText(getOpts()).cook(object.raw));
+      if (object.html){
+        var cooked = "";
+      }
+      else {
+        var cooked = new Handlebars.SafeString(new PrettyText(getOpts()).cook(object.raw));
+      }
       data.title = object.title;
       data.slug = object.slug;
       data.raw = object.raw;
       data.cooked = cooked.string;
       data.custom_slug = object.custom_slug;
+      data.html = object.html;
+      data.html_content = object.html_content;
     };
     
     return ajax("/dl-static-pages/admin/pages.json", {

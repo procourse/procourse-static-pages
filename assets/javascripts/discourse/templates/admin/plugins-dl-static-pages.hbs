@@ -17,7 +17,7 @@
                  icon="plus"}}
     </div>
     {{#if selectedItem.selected}}
-    <div class="show-current-style color-scheme">
+    <div class="show-current-style current-style color-scheme">
       <div class='admin-container'>
           <h1>{{text-field class="style-name" value=selectedItem.title}}</h1>
           <div class="controls">
@@ -47,8 +47,19 @@
           {{text-field class="style-name" value=selectedItem.slug enter=editSlug}}
           <p class="help">{{i18n 'admin.dl_static_pages.pages.slug_description'}}</p>
         </div>
-      <div>
-        {{d-editor value=selectedItem.raw class="raw-bio"}}
+        <div>
+          <label>
+            {{input type="checkbox" name="html" checked=selectedItem.html}}
+            {{i18n 'admin.dl_static_pages.pages.html'}}
+          </label>
+          <p class="help">{{i18n 'admin.dl_static_pages.pages.html_description'}}</p>
+        </div>
+        <div>
+          {{#if selectedItem.html}}
+            {{ace-editor content=selectedItem.html_content editorId="html|common" mode=activeSectionMode autofocus="true"}}
+          {{else}}
+            {{d-editor value=selectedItem.raw class="raw-bio"}}
+          {{/if}}
         </div>
         </form>
     </div>

@@ -43,9 +43,12 @@ export default Ember.Controller.extend({
     if (((this.get('originals').title == this.get('selectedItem').title) &&
       (this.get('originals').slug == this.get('selectedItem').slug) &&
       (this.get('originals').raw == this.get('selectedItem').raw) &&
+      (this.get('originals').html == this.get('selectedItem').html) &&
+      (this.get('originals').html_content == this.get('selectedItem').html_content) &&
       (this.get('originals').cooked == this.get('selectedItem').cooked)) ||
       (!this.get('selectedItem').title) ||
-      (!this.get('selectedItem').raw)
+      (!this.get('selectedItem').raw) ||
+      (this.get('selectedItem').html && !this.get('selectedItem').html_content)
     ) {
       this.set('disableSave', true); 
       return;
@@ -53,7 +56,7 @@ export default Ember.Controller.extend({
     else{
       this.set('disableSave', false);
     };
-  }.observes('selectedItem.title', 'selectedItem.slug', 'selectedItem.raw'),
+  }.observes('selectedItem.title', 'selectedItem.slug', 'selectedItem.raw', 'selectedItem.html', 'selectedItem.html_content'),
 
   slugify: function(text){
     return text.toString().toLowerCase()
@@ -73,7 +76,9 @@ export default Ember.Controller.extend({
         slug: page.slug,
         raw: page.raw,
         cooked: page.cooked,
-        custom_slug: page.custom_slug
+        custom_slug: page.custom_slug,
+        html: page.html,
+        html_content: page.html_content
       });
       this.set('disableSave', true);
       this.set('selectedItem', page);
@@ -88,6 +93,8 @@ export default Ember.Controller.extend({
       newDLPage.set('slug', this.slugify(newTitle));
       newDLPage.set('slugEdited', false);
       newDLPage.set('newRecord', true);
+      newDLPage.set('html', false);
+      newDLPage.set('html_content', "");
       this.get('model').pushObject(newDLPage);
       this.send('selectDLPage', newDLPage);
     },
