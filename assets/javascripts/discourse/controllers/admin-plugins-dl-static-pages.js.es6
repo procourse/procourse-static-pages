@@ -47,7 +47,7 @@ export default Ember.Controller.extend({
       (this.get('originals').html_content == this.get('selectedItem').html_content) &&
       (this.get('originals').cooked == this.get('selectedItem').cooked)) ||
       (!this.get('selectedItem').title) ||
-      (!this.get('selectedItem').raw) ||
+      (!this.get('selectedItem').html && !this.get('selectedItem').raw) ||
       (this.get('selectedItem').html && !this.get('selectedItem').html_content)
     ) {
       this.set('disableSave', true); 
