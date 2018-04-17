@@ -6,6 +6,13 @@ export default Discourse.Route.extend({
     return Page.findById(opts);
   },
 
+  titleToken() {
+    const model = this.modelFor('dl-static-pages.page.show');
+    if (model && model.title) {
+      return model.title;
+    }
+  },
+
   setupController(controller, model) {
     controller.setProperties({ model });
   },
