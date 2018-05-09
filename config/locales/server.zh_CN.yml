@@ -1,0 +1,4 @@
+zh_CN:
+  site_settings: 
+    dl_static_pages_enabled: '在启用静态页面：<a href="/admin/plugins/dl-static-pages">/admin/plugins/dl-static-pages</a>'
+    dl_static_pages_license_key: '输入您的许可密钥以解锁高级特性。获取许可证密钥：<a href="https://discourseleague.com/dl-static-pages">discourseleague.com/dl-static-pages</a>.'
