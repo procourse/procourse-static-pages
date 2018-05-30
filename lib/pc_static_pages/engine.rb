@@ -7,7 +7,7 @@ module PcStaticPages
 
     config.after_initialize do
   		Discourse::Application.routes.append do
-  			mount ::PcStaticPages::Engine, at: "/pc-static-pages"
+  			mount ::PcStaticPages::Engine, at: "/procourse-static-pages"
   		end
 
       module ::Jobs

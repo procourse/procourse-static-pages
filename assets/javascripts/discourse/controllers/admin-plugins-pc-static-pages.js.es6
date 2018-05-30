@@ -1,5 +1,5 @@
 import Page from '../models/page';
-import { licensed } from 'discourse/plugins/pc-static-pages/discourse/lib/constraint';
+import { licensed } from 'discourse/plugins/procourse-static-pages/discourse/lib/constraint';
 
 export default Ember.Controller.extend({
 

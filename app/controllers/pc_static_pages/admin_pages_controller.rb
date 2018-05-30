@@ -1,6 +1,6 @@
 module PcStaticPages
   class AdminPagesController < Admin::AdminController
-    requires_plugin 'pc-static-pages'
+    requires_plugin 'procourse-static-pages'
 
     def create
       pages = PluginStoreRow.where(plugin_name: "pc_static_pages")
