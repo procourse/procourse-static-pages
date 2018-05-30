@@ -1,8 +1,8 @@
-# name: pc-static-pages
+# name: procourse-static-pages
 # about: Adds the ability to create static pages for Discourse.
 # version: 0.1
 # author: Joe Buhlig joebuhlig.com
-# url: https://www.github.com/discourseleague/pc-static-pages
+# url: https://www.github.com/procourse/procourse-static-pages
 
 enabled_site_setting :pc_static_pages_enabled
 
