@@ -15,13 +15,13 @@ module PcStaticPages
           every 1.days
 
           def execute(args)
-            validate_url = "https://discourseleague.com/licenses/validate?base_url=" + Discourse.base_url + "&id=14744&key=" + SiteSetting.pc_static_pages_license_key
+            validate_url = "https://discourseleague.com/licenses/validate?base_url=" + Discourse.base_url + "&id=14744&key=" + SiteSetting.procourse_static_pages_license_key
             request = Net::HTTP.get(URI.parse(validate_url))
             result = JSON.parse(request)
             if result["enabled"]
-              SiteSetting.pc_static_pages_licensed = true
+              SiteSetting.procourse_static_pages_licensed = true
             else
-              SiteSetting.pc_static_pages_licensed = false
+              SiteSetting.procourse_static_pages_licensed = false
             end
           end
 
@@ -33,10 +33,10 @@ module PcStaticPages
 end
 
 DiscourseEvent.on(:site_setting_saved) do |site_setting|
-  if site_setting.name.to_s == "pc_static_pages_license_key" && site_setting.value_changed?
+  if site_setting.name.to_s == "procourse_static_pages_license_key" && site_setting.value_changed?
 
     if site_setting.value.empty?
-      SiteSetting.pc_static_pages_licensed = false
+      SiteSetting.procourse_static_pages_licensed = false
     else
       validate_url = "https://discourseleague.com/licenses/validate?base_url=" + Discourse.base_url + "&id=14744&key=" + site_setting.value
       request = Net::HTTP.get(URI.parse(validate_url))
@@ -48,9 +48,9 @@ DiscourseEvent.on(:site_setting_saved) do |site_setting|
       end
 
       if result["enabled"]
-        SiteSetting.pc_static_pages_licensed = true
+        SiteSetting.procourse_static_pages_licensed = true
       else
-        SiteSetting.pc_static_pages_licensed = false
+        SiteSetting.procourse_static_pages_licensed = false
       end
     end
 

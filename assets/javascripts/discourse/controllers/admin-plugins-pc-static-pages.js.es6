@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
 
   baseDLPage: function() {
     var a = [];
-    a.set('title', I18n.t('admin.pc_static_pages.pages.new_title'));
+    a.set('title', I18n.t('admin.procourse_static_pages.pages.new_title'));
     a.set('active', false);
     return a;
   }.property('model.@each.id'),
@@ -88,7 +88,7 @@ export default Ember.Controller.extend({
 
     newPCPage: function() {
       const newPCPage = Em.copy(this.get('baseDLPage'), true);
-      var newTitle = I18n.t('admin.pc_static_pages.pages.new_title');
+      var newTitle = I18n.t('admin.procourse_static_pages.pages.new_title');
       newPCPage.set('title', newTitle);
       newPCPage.set('slug', this.slugify(newTitle));
       newPCPage.set('slugEdited', false);
@@ -133,7 +133,7 @@ export default Ember.Controller.extend({
       var self = this,
           item = self.get('selectedItem');
 
-      return bootbox.confirm(I18n.t("admin.pc_static_pages.pages.delete_confirm"), I18n.t("no_value"), I18n.t("yes_value"), function(result) {
+      return bootbox.confirm(I18n.t("admin.procourse_static_pages.pages.delete_confirm"), I18n.t("no_value"), I18n.t("yes_value"), function(result) {
         if (result) {
           if (!item.get('id')) {
             self.removeSelected();

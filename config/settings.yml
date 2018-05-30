@@ -1,11 +1,11 @@
 plugins:
-  pc_static_pages_enabled:
+  procourse_static_pages_enabled:
     default: true
     client: true
-  pc_static_pages_license_key:
+  procourse_static_pages_license_key:
     default: ""
     client: false
-  pc_static_pages_licensed:
+  procourse_static_pages_licensed:
     default: false
     client: true
     hidden: true

@@ -2,14 +2,14 @@
 <div class="customize procourse-static-pages admin">
   <div class="admin-container">
     <div class='content-list span6'>
-      <h3>{{i18n 'pc_static_pages.title'}}</h3>
+      <h3>{{i18n 'procourse_static_pages.title'}}</h3>
       <ul>
       {{#each model as |page|}}
         <li><a {{action "selectPCPage" page}} class="{{if page.selected 'active'}}">{{page.title}}</a></li>
       {{/each}}
       </ul>
       {{#unless model}}
-        <p class="desc">{{i18n 'admin.pc_static_pages.pages.no_pages'}}</p>
+        <p class="desc">{{i18n 'admin.procourse_static_pages.pages.no_pages'}}</p>
       {{/unless}}
       {{d-button class="btn"
                  action="newPCPage"
@@ -38,21 +38,21 @@
         <form class="form-horizontal">
         {{#if selectedItem.id}}
         <div>
-          <label>{{i18n 'admin.pc_static_pages.pages.id'}}: {{ selectedItem.id }}</label>
-          <p class="help">{{i18n 'admin.pc_static_pages.pages.page_url_description'}}: <a target="_blank" href="{{pageURL}}{{selectedItem.slug}}/{{selectedItem.id}}/">{{pageURL}}{{selectedItem.slug}}/{{selectedItem.id}}/</a></p>
+          <label>{{i18n 'admin.procourse_static_pages.pages.id'}}: {{ selectedItem.id }}</label>
+          <p class="help">{{i18n 'admin.procourse_static_pages.pages.page_url_description'}}: <a target="_blank" href="{{pageURL}}{{selectedItem.slug}}/{{selectedItem.id}}/">{{pageURL}}{{selectedItem.slug}}/{{selectedItem.id}}/</a></p>
         </div>
         {{/if}}
         <div>
-          <label>{{i18n 'admin.pc_static_pages.pages.slug'}}</label>
+          <label>{{i18n 'admin.procourse_static_pages.pages.slug'}}</label>
           {{text-field class="style-name" value=selectedItem.slug enter=editSlug}}
-          <p class="help">{{i18n 'admin.pc_static_pages.pages.slug_description'}}</p>
+          <p class="help">{{i18n 'admin.procourse_static_pages.pages.slug_description'}}</p>
         </div>
         <div>
           <label>
             {{input type="checkbox" name="html" checked=selectedItem.html}}
-            {{i18n 'admin.pc_static_pages.pages.html'}}
+            {{i18n 'admin.procourse_static_pages.pages.html'}}
           </label>
-          <p class="help">{{i18n 'admin.pc_static_pages.pages.html_description'}}</p>
+          <p class="help">{{i18n 'admin.procourse_static_pages.pages.html_description'}}</p>
         </div>
         <div>
           {{#if selectedItem.html}}
@@ -64,7 +64,7 @@
         </form>
     </div>
     {{else}}
-      <div class="current-style color-scheme badges">{{i18n 'admin.pc_static_pages.pages.no_page_selected'}}</div>
+      <div class="current-style color-scheme badges">{{i18n 'admin.procourse_static_pages.pages.no_page_selected'}}</div>
     {{/if}}
   </div>
 </div>

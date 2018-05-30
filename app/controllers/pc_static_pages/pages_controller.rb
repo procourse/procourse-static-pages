@@ -3,7 +3,7 @@ module PcStaticPages
 
     def show
       if params[:id]
-        page = PluginStore.get("pc_static_pages", "p:" + params[:id])
+        page = PluginStore.get("procourse_static_pages", "p:" + params[:id])
       end
 
       if page && page[:active]

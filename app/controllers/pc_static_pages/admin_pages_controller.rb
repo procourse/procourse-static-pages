@@ -3,14 +3,14 @@ module PcStaticPages
     requires_plugin 'procourse-static-pages'
 
     def create
-      pages = PluginStoreRow.where(plugin_name: "pc_static_pages")
+      pages = PluginStoreRow.where(plugin_name: "procourse_static_pages")
         .where("key LIKE 'p:%'")
         .where("key != 'p:id'")
 
-      if pages.length >= 2 and !SiteSetting.pc_static_pages_licensed
-        render_json_error(I18n.t('pc_static_pages.admin.not_licensed_message'))
+      if pages.length >= 2 and !SiteSetting.procourse_static_pages_licensed
+        render_json_error(I18n.t('procourse_static_pages.admin.not_licensed_message'))
       else
-        id = PluginStore.get("pc_static_pages", "p:id") || 1
+        id = PluginStore.get("procourse_static_pages", "p:id") || 1
 
         new_page = {
           id: id,
@@ -23,15 +23,15 @@ module PcStaticPages
           html: params[:page][:html],
           html_content: params[:page][:html_content]
         }
-        PluginStore.set("pc_static_pages", "p:" + id.to_s, new_page)
-        PluginStore.set("pc_static_pages", "p:id", id + 1)
+        PluginStore.set("procourse_static_pages", "p:" + id.to_s, new_page)
+        PluginStore.set("procourse_static_pages", "p:id", id + 1)
 
         render json: new_page, root: false
       end
     end
 
     def update
-      page = PluginStore.get("pc_static_pages", "p:" + params[:page][:id].to_s)
+      page = PluginStore.get("procourse_static_pages", "p:" + params[:page][:id].to_s)
 
       if page.nil?
         render_json_error(page)
@@ -45,7 +45,7 @@ module PcStaticPages
         page[:html] = params[:page][:html] if !params[:page][:html].nil?
         page[:html_content] = params[:page][:html_content] if !params[:page][:html_content].nil?
 
-        PluginStore.set("pc_static_pages", "p:" + params[:page][:id].to_s, page)
+        PluginStore.set("procourse_static_pages", "p:" + params[:page][:id].to_s, page)
 
         render json: page, root: false
       end
@@ -63,7 +63,7 @@ module PcStaticPages
     end
 
     def show
-      pages = PluginStoreRow.where(plugin_name: "pc_static_pages")
+      pages = PluginStoreRow.where(plugin_name: "procourse_static_pages")
         .where("key LIKE 'p:%'")
         .where("key != 'p:id'")
       render_json_dump(pages)
