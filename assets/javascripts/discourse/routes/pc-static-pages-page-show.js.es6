@@ -7,7 +7,7 @@ export default Discourse.Route.extend({
   },
 
   titleToken() {
-    const model = this.modelFor('dl-static-pages.page.show');
+    const model = this.modelFor('pc-static-pages.page.show');
     if (model && model.title) {
       return model.title;
     }

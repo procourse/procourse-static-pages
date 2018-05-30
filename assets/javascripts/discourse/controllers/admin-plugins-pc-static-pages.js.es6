@@ -1,5 +1,5 @@
 import Page from '../models/page';
-import { licensed } from 'discourse/plugins/dl-static-pages/discourse/lib/constraint';
+import { licensed } from 'discourse/plugins/pc-static-pages/discourse/lib/constraint';
 
 export default Ember.Controller.extend({
 
@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
 
   baseDLPage: function() {
     var a = [];
-    a.set('title', I18n.t('admin.dl_static_pages.pages.new_title'));
+    a.set('title', I18n.t('admin.pc_static_pages.pages.new_title'));
     a.set('active', false);
     return a;
   }.property('model.@each.id'),
@@ -50,7 +50,7 @@ export default Ember.Controller.extend({
       (!this.get('selectedItem').html && !this.get('selectedItem').raw) ||
       (this.get('selectedItem').html && !this.get('selectedItem').html_content)
     ) {
-      this.set('disableSave', true); 
+      this.set('disableSave', true);
       return;
     }
     else{
@@ -68,7 +68,7 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-    selectDLPage: function(page) {
+    selectPCPage: function(page) {
       if (this.get('selectedItem')) { this.get('selectedItem').set('selected', false); };
       this.set('originals', {
         title: page.title,
@@ -86,17 +86,17 @@ export default Ember.Controller.extend({
       page.set('selected', true);
     },
 
-    newDLPage: function() {
-      const newDLPage = Em.copy(this.get('baseDLPage'), true);
-      var newTitle = I18n.t('admin.dl_static_pages.pages.new_title');
-      newDLPage.set('title', newTitle);
-      newDLPage.set('slug', this.slugify(newTitle));
-      newDLPage.set('slugEdited', false);
-      newDLPage.set('newRecord', true);
-      newDLPage.set('html', false);
-      newDLPage.set('html_content', "");
-      this.get('model').pushObject(newDLPage);
-      this.send('selectDLPage', newDLPage);
+    newPCPage: function() {
+      const newPCPage = Em.copy(this.get('baseDLPage'), true);
+      var newTitle = I18n.t('admin.pc_static_pages.pages.new_title');
+      newPCPage.set('title', newTitle);
+      newPCPage.set('slug', this.slugify(newTitle));
+      newPCPage.set('slugEdited', false);
+      newPCPage.set('newRecord', true);
+      newPCPage.set('html', false);
+      newPCPage.set('html_content', "");
+      this.get('model').pushObject(newPCPage);
+      this.send('selectPCPage', newPCPage);
     },
 
     toggleEnabled: function() {
@@ -118,14 +118,14 @@ export default Ember.Controller.extend({
         this.get('selectedItem').set('custom_slug', false);
       }
       Page.save(this.get('selectedItem'));
-      this.send('selectDLPage', this.get('selectedItem'));
+      this.send('selectPCPage', this.get('selectedItem'));
     },
 
     copy: function(page) {
-      var newDLPage = Page.copy(page);
-      newDLPage.set('title', I18n.t('admin.customize.colors.copy_name_prefix') + ' ' + page.get('title'));
-      this.get('model').pushObject(newDLPage);
-      this.send('selectDLPage', newDLPage);
+      var newPCPage = Page.copy(page);
+      newPCPage.set('title', I18n.t('admin.customize.colors.copy_name_prefix') + ' ' + page.get('title'));
+      this.get('model').pushObject(newPCPage);
+      this.send('selectPCPage', newPCPage);
       this.set('disableSave', false);
     },
 
@@ -133,7 +133,7 @@ export default Ember.Controller.extend({
       var self = this,
           item = self.get('selectedItem');
 
-      return bootbox.confirm(I18n.t("admin.dl_static_pages.pages.delete_confirm"), I18n.t("no_value"), I18n.t("yes_value"), function(result) {
+      return bootbox.confirm(I18n.t("admin.pc_static_pages.pages.delete_confirm"), I18n.t("no_value"), I18n.t("yes_value"), function(result) {
         if (result) {
           if (!item.get('id')) {
             self.removeSelected();

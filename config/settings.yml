@@ -1,11 +1,11 @@
 plugins:
-  dl_static_pages_enabled:
+  pc_static_pages_enabled:
     default: true
     client: true
-  dl_static_pages_license_key:
+  pc_static_pages_license_key:
     default: ""
     client: false
-  dl_static_pages_licensed:
+  pc_static_pages_licensed:
     default: false
     client: true
     hidden: true

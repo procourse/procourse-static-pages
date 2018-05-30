@@ -32,7 +32,7 @@ StaticPage.reopenClass({
 
   findAll: function() {
     var staticPages = StaticPages.create({ content: [], loading: true });
-    ajax('/dl-static-pages/admin/pages.json').then(function(pages) {
+    ajax('/pc-static-pages/admin/pages.json').then(function(pages) {
       if (pages){
         _.each(pages, function(staticPage){
           var page = JSON.parse(staticPage.value);
@@ -82,7 +82,7 @@ StaticPage.reopenClass({
       data.html_content = object.html_content;
     };
     
-    return ajax("/dl-static-pages/admin/pages.json", {
+    return ajax("/pc-static-pages/admin/pages.json", {
       data: JSON.stringify({"page": data}),
       type: object.id ? 'PUT' : 'POST',
       dataType: 'json',
@@ -109,7 +109,7 @@ StaticPage.reopenClass({
   destroy: function(object) {
     if (object.id) {
       var data = { id: object.id };
-      return ajax("/dl-static-pages/admin/pages.json", { 
+      return ajax("/pc-static-pages/admin/pages.json", { 
         data: JSON.stringify({"page": data }), 
         type: 'DELETE',
         dataType: 'json',

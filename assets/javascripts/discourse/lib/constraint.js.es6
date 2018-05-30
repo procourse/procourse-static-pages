@@ -1,3 +1,3 @@
 export function licensed() {
-  return Discourse.SiteSettings.dl_static_pages_licensed;
+  return Discourse.SiteSettings.pc_static_pages_licensed;
 }
