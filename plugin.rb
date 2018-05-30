@@ -8,7 +8,7 @@ enabled_site_setting :pc_static_pages_enabled
 
 add_admin_route 'pc_static_pages.title', 'procourse-static-pages'
 
-register_asset "stylesheets/procourse-static-pages.scss"
+register_asset "stylesheets/pc-static-pages.scss"
 
 Discourse::Application.routes.append do
   get '/admin/plugins/procourse-static-pages' => 'admin/plugins#index', constraints: StaffConstraint.new
