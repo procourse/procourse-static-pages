@@ -2,10 +2,3 @@ plugins:
   procourse_static_pages_enabled:
     default: true
     client: true
-  procourse_static_pages_license_key:
-    default: ""
-    client: false
-  procourse_static_pages_licensed:
-    default: false
-    client: true
-    hidden: true

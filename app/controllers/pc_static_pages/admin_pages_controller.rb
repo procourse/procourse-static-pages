@@ -7,9 +7,6 @@ module PcStaticPages
         .where("key LIKE 'p:%'")
         .where("key != 'p:id'")
 
-      if pages.length >= 2 and !SiteSetting.procourse_static_pages_licensed
-        render_json_error(I18n.t('procourse_static_pages.admin.not_licensed_message'))
-      else
         id = PluginStore.get("procourse_static_pages", "p:id") || 1
 
         new_page = {
@@ -27,7 +24,6 @@ module PcStaticPages
         PluginStore.set("procourse_static_pages", "p:id", id + 1)
 
         render json: new_page, root: false
-      end
     end
 
     def update

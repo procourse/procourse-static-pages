@@ -1,4 +1,3 @@
-require_dependency "licenses_constraint"
 require_dependency "admin_constraint"
 
 PcStaticPages::Engine.routes.draw do

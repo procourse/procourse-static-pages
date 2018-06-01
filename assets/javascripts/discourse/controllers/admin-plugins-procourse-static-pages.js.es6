@@ -1,13 +1,10 @@
 import Page from '../models/page';
-import { licensed } from 'discourse/plugins/procourse-static-pages/discourse/lib/constraint';
 
 export default Ember.Controller.extend({
 
   pageURL: document.location.origin + "/page/",
 
-  licensed: licensed(),
-
-  baseDLPage: function() {
+  basePCPage: function() {
     var a = [];
     a.set('title', I18n.t('admin.procourse_static_pages.pages.new_title'));
     a.set('active', false);
@@ -87,14 +84,14 @@ export default Ember.Controller.extend({
     },
 
     newPCPage: function() {
-      const newPCPage = Em.copy(this.get('baseDLPage'), true);
+      const newPCPage = Em.copy(this.get('basePCPage'), true);
       var newTitle = I18n.t('admin.procourse_static_pages.pages.new_title');
-      newPCPage.set('title', newTitle);
-      newPCPage.set('slug', this.slugify(newTitle));
-      newPCPage.set('slugEdited', false);
-      newPCPage.set('newRecord', true);
-      newPCPage.set('html', false);
-      newPCPage.set('html_content', "");
+      this.set('title', newTitle);
+      this.set('slug', this.slugify(newTitle));
+      this.set('slugEdited', false);
+      this.set('newRecord', true);
+      this.set('html', false);
+      this.set('html_content', "");
       this.get('model').pushObject(newPCPage);
       this.send('selectPCPage', newPCPage);
     },
