@@ -1,9 +1,9 @@
-module DlStaticPages
+module PcStaticPages
   class PagesController < ApplicationController
 
     def show
       if params[:id]
-        page = PluginStore.get("dl_static_pages", "p:" + params[:id])
+        page = PluginStore.get("procourse_static_pages", "p:" + params[:id])
       end
 
       if page && page[:active]

@@ -1,7 +1,11 @@
-.dl-static-pages.customize .current-style{
-  width:70%;
+.procourse-static-pages.customize {
+  .current-style{
+    margin-left: 20px;
+    float: left;
+    width: 70%;
+  }
 }
-.dl-static-pages {
+.procourse-static-pages {
   .help{
     color: #919191;
     padding-top: 3px;
