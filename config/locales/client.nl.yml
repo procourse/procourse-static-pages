@@ -1,0 +1,17 @@
+nl:
+  js:
+    admin:
+      procourse_static_pages:
+        pages:
+          new_title: "Nieuwe pagina"
+          id: "ID"
+          page_url_description: "Publieke pagina URL"
+          slug: "Slug"
+          slug_description: "Einde van de URL van de pagina."
+          html: "Gebruik HTML?"
+          html_description: "Gebruik HTML in plaats van de Markdown bewerker?"
+          delete_confirm: "Verwijder deze pagina?"
+          no_pages: "Voeg pagina's toe voor je gebruikers."
+          no_page_selected: "Geen pagina geselecteerd."
+    procourse_static_pages:
+      title: "Statische Pagina's"
