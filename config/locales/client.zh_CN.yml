@@ -1,0 +1,17 @@
+zh_CN:
+  js:
+    admin:
+      procourse_static_pages:
+        pages:
+          new_title: "新建页面"
+          id: "ID"
+          page_url_description: "公开页面链接"
+          slug: "别名"
+          slug_description: "该页面链接的别名。"
+          html: "使用 HTML？"
+          html_description: "使用原始Html而不是Markdown编辑器？"
+          delete_confirm: "删除这个页面？"
+          no_pages: "为您的用户添加一些页面。"
+          no_page_selected: "没有选择的页面。"
+    procourse_static_pages:
+      title: "静态页面"

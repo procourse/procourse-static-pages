@@ -1,0 +1,4 @@
+zh_CN:
+  site_settings: 
+    procourse_static_pages_enabled: '在启用静态页面：<a href="/admin/plugins/procourse-static-pages">/admin/plugins/procourse-static-pages</a>'
+
