@@ -4,6 +4,10 @@ module PcStaticPages
     def show
       if params[:id]
         page = PluginStore.get("procourse_static_pages", "p:" + params[:id])
+
+        if page.is_a? String
+          page = eval(page)
+        end
       end
 
       if page && page[:active]

@@ -28,6 +28,9 @@ module PcStaticPages
 
     def update
       page = PluginStore.get("procourse_static_pages", "p:" + params[:page][:id].to_s)
+      if page.is_a? String
+        page = eval(page)
+      end
 
       if page.nil?
         render_json_error(page)
