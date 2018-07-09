@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
   pageURL: document.location.origin + "/page/",
 
   basePCPage: function() {
-    var a = [];
+    const a = Em.Object.create({});
     a.set('title', I18n.t('admin.procourse_static_pages.pages.new_title'));
     a.set('active', false);
     return a;
@@ -84,14 +84,15 @@ export default Ember.Controller.extend({
     },
 
     newPCPage: function() {
-      const newPCPage = Em.copy(this.get('basePCPage'), true);
+      var basePCPage = this.get('basePCPage');
+      const newPCPage = Em.Object.create(basePCPage);
       var newTitle = I18n.t('admin.procourse_static_pages.pages.new_title');
-      this.set('title', newTitle);
-      this.set('slug', this.slugify(newTitle));
-      this.set('slugEdited', false);
-      this.set('newRecord', true);
-      this.set('html', false);
-      this.set('html_content', "");
+      newPCPage.set('title', newTitle);
+      newPCPage.set('slug', this.slugify(newTitle));
+      newPCPage.set('slugEdited', false);
+      newPCPage.set('newRecord', true);
+      newPCPage.set('html', false);
+      newPCPage.set('html_content', "");
       this.get('model').pushObject(newPCPage);
       this.send('selectPCPage', newPCPage);
     },

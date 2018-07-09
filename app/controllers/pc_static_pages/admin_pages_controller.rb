@@ -21,7 +21,7 @@ module PcStaticPages
           html_content: params[:page][:html_content]
         }
         PluginStore.set("procourse_static_pages", "p:" + id.to_s, new_page)
-        PluginStore.set("procourse_static_pages", "p:id", id + 1)
+        PluginStore.set("procourse_static_pages", "p:id", (id.to_i + 1).to_s)
 
         render json: new_page, root: false
     end
