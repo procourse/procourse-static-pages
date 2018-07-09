@@ -1,1 +1,1 @@
-All support documentation, bug reports, and roadmap are discussed at [procourse.co](https://procourse.co).
+Check out the [Meta discussion](https://meta.discourse.org/t/static-pages-plugin-dl-static-pages/69698?u=joebuhlig) for more info.
