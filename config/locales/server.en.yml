@@ -1,4 +1,3 @@
 en:
-  site_settings: 
-    dl_static_pages_enabled: 'Enable Static Pages at <a href="/admin/plugins/dl-static-pages">/admin/plugins/dl-static-pages</a>'
-    dl_static_pages_license_key: 'Enter your license key to unlock premium features. Get a license key at <a href="https://discourseleague.com/dl-static-pages">discourseleague.com/dl-static-pages</a>.'
+  site_settings:
+    procourse_static_pages_enabled: 'Enable Static Pages at <a href="/admin/plugins/procourse-static-pages">/admin/plugins/procourse-static-pages</a>'

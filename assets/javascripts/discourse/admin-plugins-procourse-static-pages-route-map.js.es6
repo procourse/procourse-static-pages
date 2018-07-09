@@ -2,6 +2,6 @@ export default {
   resource: 'admin.adminPlugins',
   path: '/plugins',
   map() {
-    this.route('dl-static-pages');
+    this.route('procourse-static-pages');
   }
 };
