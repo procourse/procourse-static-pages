@@ -92,7 +92,6 @@ StaticPage.reopenClass({
         return bootbox.alert(result.jqXHR.responseJSON.errors[0]);
       }
     }).then(function(result) {
-      console.log(result);
       if(result.id) { 
         object.set('id', result.id);
         object.set('savingStatus', I18n.t('saved'));
