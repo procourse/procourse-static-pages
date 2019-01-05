@@ -1,0 +1,3 @@
+fr:
+  site_settings:
+    procourse_static_pages_enabled: 'Activer le plugin Static Pages sur <a href="/admin/plugins/procourse-static-pages">/admin/plugins/procourse-static-pages</a>'

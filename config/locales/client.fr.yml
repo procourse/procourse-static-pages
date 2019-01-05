@@ -1,0 +1,17 @@
+fr:
+  js:
+    admin:
+      procourse_static_pages:
+        pages:
+          new_title: "Nouvelle page"
+          id: "ID"
+          page_url_description: "URL de la page"
+          slug: "Slug"
+          slug_description: "Label à la fin de l'url de la page."
+          html: "Utiliser HTML ?"
+          html_description: "Utiliser du code html au lieu de l'éditeur Markdown de Discourse ?"
+          delete_confirm: "Supprimer cette page ?"
+          no_pages: "Ajoutez des pages pour vos utilisateurs."
+          no_page_selected: "Aucune page sélectionnée."
+    procourse_static_pages:
+      title: "Pages statiqes"
