@@ -38,6 +38,33 @@ describe PcStaticPages::AdminPagesController do
       before :each do
           sign_in(admin)
       end
+      it "allow admin users to update a page" do
+        page = {
+          active: true,
+          title: "test",
+          slug: "slug",
+          raw: "test raw",
+          cooked: "test_cooked",
+          custom_slug: "custom slug",
+          html: "<h1>test</h1>",
+          html_content: "test"
+        }
+        post "/procourse-static-pages/admin/pages.json", params: { page: page }
+        expect(response.status).to eq(200)
+
+        created_page = PluginStoreRow.where(plugin_name: "procourse_static_pages")
+          .where("value LIKE '%test_cooked%'")
+
+        expect(created_page[0]["value"]).to be_truthy
+      end
+    end
+  end
+
+  describe "POST #update" do
+    context "as an admin" do
+      before :each do
+          sign_in(admin)
+      end
       it "allow admin users to create a page" do
         page = {
           active: true,
@@ -51,12 +78,51 @@ describe PcStaticPages::AdminPagesController do
         }
         post "/procourse-static-pages/admin/pages.json", params: { page: page }
         expect(response.status).to eq(200)
-        puts response.status
-        created_page = PluginStoreRow.where(plugin_name: "procourse_static_pages")
-          .where("value LIKE '%test_cooked%'")
 
-        expect(created_page[0]["value"]).to be_truthy
+        page[:cooked] = "test_updated"
+        page[:id] = response.parsed_body["id"]
+
+        patch "/procourse-static-pages/admin/pages.json", params: { page: page }
+        expect(response.status).to eq(200)
+
+        updated_page = PluginStoreRow.where(plugin_name: "procourse_static_pages")
+          .where("value LIKE '%test_updated%'")
+
+        expect(updated_page[0]["value"]).to be_truthy
       end
     end
   end
+
+  describe "POST #destroy" do
+    context "as an admin" do
+      before :each do
+          sign_in(admin)
+      end
+      it "allow admin users to destroy a page" do
+        page = {
+          active: true,
+          title: "test",
+          slug: "slug",
+          raw: "test raw",
+          cooked: "test_cooked",
+          custom_slug: "custom slug",
+          html: "<h1>test</h1>",
+          html_content: "test"
+        }
+        post "/procourse-static-pages/admin/pages.json", params: { page: page }
+        expect(response.status).to eq(200)
+
+        page[:id] = response.parsed_body["id"]
+
+        delete "/procourse-static-pages/admin/pages.json", params: { page: page }
+        expect(response.status).to eq(200)
+
+        updated_page = PluginStoreRow.where(plugin_name: "procourse_static_pages")
+          .where("value LIKE '%test_cooked%'")
+
+        expect(updated_page[0]).to be_nil
+      end
+    end
+  end
+
 end
