@@ -39,6 +39,7 @@ export default Ember.Controller.extend({
     if (!this.get('originals') || !this.get('selectedItem')) {this.set('disableSave', true); return;}
     if (((this.get('originals').title == this.get('selectedItem').title) &&
       (this.get('originals').slug == this.get('selectedItem').slug) &&
+      (this.get('originals').group == this.get('selectedItem').group) &&
       (this.get('originals').raw == this.get('selectedItem').raw) &&
       (this.get('originals').html == this.get('selectedItem').html) &&
       (this.get('originals').html_content == this.get('selectedItem').html_content) &&
@@ -53,7 +54,7 @@ export default Ember.Controller.extend({
     else{
       this.set('disableSave', false);
     };
-  }.observes('selectedItem.title', 'selectedItem.slug', 'selectedItem.raw', 'selectedItem.html', 'selectedItem.html_content'),
+  }.observes('selectedItem.title', 'selectedItem.slug', 'selectedItem.group', 'selectedItem.raw', 'selectedItem.html', 'selectedItem.html_content'),
 
   slugify: function(text){
     return text.toString().toLowerCase()
@@ -66,21 +67,25 @@ export default Ember.Controller.extend({
 
   actions: {
     selectPCPage: function(page) {
-      if (this.get('selectedItem')) { this.get('selectedItem').set('selected', false); };
-      this.set('originals', {
-        title: page.title,
-        active: page.active,
-        slug: page.slug,
-        raw: page.raw,
-        cooked: page.cooked,
-        custom_slug: page.custom_slug,
-        html: page.html,
-        html_content: page.html_content
+      Page.customGroups().then(g => {
+        this.set('customGroups', g);
+        if (this.get('selectedItem')) { this.get('selectedItem').set('selected', false); };
+        this.set('originals', {
+          title: page.title,
+          active: page.active,
+          slug: page.slug,
+          group: page.group,
+          raw: page.raw,
+          cooked: page.cooked,
+          custom_slug: page.custom_slug,
+          html: page.html,
+          html_content: page.html_content
+        });
+        this.set('disableSave', true);
+        this.set('selectedItem', page);
+        page.set('savingStatus', null);
+        page.set('selected', true);
       });
-      this.set('disableSave', true);
-      this.set('selectedItem', page);
-      page.set('savingStatus', null);
-      page.set('selected', true);
     },
 
     newPCPage: function() {
@@ -90,6 +95,7 @@ export default Ember.Controller.extend({
       newPCPage.set('title', newTitle);
       newPCPage.set('slug', this.slugify(newTitle));
       newPCPage.set('slugEdited', false);
+      newPCPage.set('group', null),
       newPCPage.set('newRecord', true);
       newPCPage.set('html', false);
       newPCPage.set('html_content', "");

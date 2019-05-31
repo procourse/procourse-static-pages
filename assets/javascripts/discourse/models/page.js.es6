@@ -1,5 +1,6 @@
 import { ajax } from 'discourse/lib/ajax';
 import { default as PrettyText, buildOptions } from 'pretty-text/pretty-text';
+import Group from 'discourse/models/group';
 
 const StaticPage = Discourse.Model.extend(Ember.Copyable, {
 
@@ -41,6 +42,7 @@ StaticPage.reopenClass({
             title: page.title,
             active: page.active,
             slug: page.slug,
+            group: page.group,
             raw: page.raw,
             cooked: page.cooked,
             custom_slug: page.custom_slug,
@@ -56,7 +58,7 @@ StaticPage.reopenClass({
 
   save: function(object, enabledOnly=false) {
     if (object.get('disableSave')) return;
-    
+
     object.set('savingStatus', I18n.t('saving'));
     object.set('saving',true);
 
@@ -75,13 +77,14 @@ StaticPage.reopenClass({
       }
       data.title = object.title;
       data.slug = object.slug;
+      data.group = object.group;
       data.raw = object.raw;
       data.cooked = cooked.string;
       data.custom_slug = object.custom_slug;
       data.html = object.html;
       data.html_content = object.html_content;
     };
-    
+
     return ajax("/procourse-static-pages/admin/pages.json", {
       data: JSON.stringify({"page": data}),
       type: object.id ? 'PUT' : 'POST',
@@ -92,7 +95,7 @@ StaticPage.reopenClass({
         return bootbox.alert(result.jqXHR.responseJSON.errors[0]);
       }
     }).then(function(result) {
-      if(result.id) { 
+      if(result.id) {
         object.set('id', result.id);
         object.set('savingStatus', I18n.t('saved'));
         object.set('saving', false);
@@ -109,13 +112,19 @@ StaticPage.reopenClass({
   destroy: function(object) {
     if (object.id) {
       var data = { id: object.id };
-      return ajax("/procourse-static-pages/admin/pages.json", { 
-        data: JSON.stringify({"page": data }), 
+      return ajax("/procourse-static-pages/admin/pages.json", {
+        data: JSON.stringify({"page": data }),
         type: 'DELETE',
         dataType: 'json',
         contentType: 'application/json' });
     }
-  }
+  },
+
+  customGroups: function(){
+    return Group.findAll().then(groups => {
+      return groups.filter(g => !g.get('automatic'));
+    });
+  },
 });
 
 export default StaticPage;

@@ -14,6 +14,7 @@ module PcStaticPages
           active: params[:page][:active],
           title: params[:page][:title],
           slug: params[:page][:slug],
+          group: params[:page][:group],
           raw: params[:page][:raw],
           cooked: params[:page][:cooked],
           custom_slug: params[:page][:custom_slug],
@@ -38,6 +39,7 @@ module PcStaticPages
         page[:active] = params[:page][:active] if !params[:page][:active].nil?
         page[:title] = params[:page][:title] if !params[:page][:title].nil?
         page[:slug] = params[:page][:slug] if !params[:page][:slug].nil?
+        page[:group] = params[:page][:group]
         page[:raw] = params[:page][:raw] if !params[:page][:raw].nil?
         page[:cooked] = params[:page][:cooked] if !params[:page][:cooked].nil?
         page[:custom_slug] = params[:page][:custom_slug] if !params[:page][:custom_slug].nil?
@@ -72,7 +74,7 @@ module PcStaticPages
     private
 
     def page_params
-      params.permit(page: [:active, :title, :slug, :raw, :cooked, :custom_slug, :html, :html_content])[:page]
+      params.permit(page: [:active, :title, :slug, :group, :raw, :cooked, :custom_slug, :html, :html_content])[:page]
     end
 
   end
