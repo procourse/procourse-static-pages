@@ -1,5 +1,5 @@
 module Jobs
-  class MigrateStaticPagesPlugin < Jobs::Onceoff
+  class MigrateStaticPagesPlugin < ::Jobs::Onceoff
     # Migrate content from dl_static_pages name to procourse_static_pages
     def execute_onceoff(args)
         dl_page_presence = PluginStoreRow.where(plugin_name: "dl_static_pages").exists?
