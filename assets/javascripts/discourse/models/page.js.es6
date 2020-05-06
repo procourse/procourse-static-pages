@@ -1,8 +1,9 @@
 import { ajax } from 'discourse/lib/ajax';
 import { default as PrettyText, buildOptions } from 'pretty-text/pretty-text';
 import Group from 'discourse/models/group';
+import EmberObject from '@ember/object';
 
-const StaticPage = Discourse.Model.extend(Ember.Copyable, {
+const StaticPage = EmberObject.extend(Ember.Copyable, {
 
   init: function() {
     this._super();
