@@ -1,6 +1,7 @@
 import Page from '../models/page';
+import DiscourseRoute from "discourse/routes/discourse";
 
-export default Discourse.Route.extend({
+export default DiscourseRoute.extend({
   model() {
     return Page.findAll();
   },

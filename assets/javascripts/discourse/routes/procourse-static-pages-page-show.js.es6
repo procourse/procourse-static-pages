@@ -1,7 +1,8 @@
 import Page from '../models/page-show';
 import DiscourseURL from 'discourse/lib/url';
+import DiscourseRoute from "discourse/routes/discourse";
 
-export default Discourse.Route.extend({
+export default DiscourseRoute.extend({
   model(opts) {
     return Page.findById(opts);
   },
