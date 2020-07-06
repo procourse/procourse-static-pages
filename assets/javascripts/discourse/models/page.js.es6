@@ -2,6 +2,7 @@ import { ajax } from 'discourse/lib/ajax';
 import { default as PrettyText, buildOptions } from 'pretty-text/pretty-text';
 import Group from 'discourse/models/group';
 import EmberObject from '@ember/object';
+import { getURLWithCDN } from "discourse-common/lib/get-url";
 
 const StaticPage = EmberObject.extend(Ember.Copyable, {
 
@@ -14,7 +15,7 @@ function getOpts() {
   const siteSettings = Discourse.__container__.lookup('site-settings:main');
 
   return buildOptions({
-    getURL: Discourse.getURLWithCDN,
+    getURL: getURLWithCDN,
     currentUser: Discourse.__container__.lookup('current-user:main'),
     siteSettings
   });
