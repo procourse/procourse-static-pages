@@ -25,7 +25,7 @@ function getOpts() {
 var StaticPages = Ember.ArrayProxy.extend({
   selectedItemChanged: function() {
     var selected = this.get('selectedItem');
-    _.each(this.get('content'),function(i) {
+    this.get('content').forEach((i) => {
       return i.set('selected', selected === i);
     });
   }.observes('selectedItem')
@@ -37,7 +37,7 @@ StaticPage.reopenClass({
     var staticPages = StaticPages.create({ content: [], loading: true });
     ajax('/procourse-static-pages/admin/pages.json').then(function(pages) {
       if (pages){
-        _.each(pages, function(staticPage){
+        pages.forEach((staticPage) => {
           var page = JSON.parse(staticPage.value);
             staticPages.pushObject(StaticPage.create({
             id: page.id,
