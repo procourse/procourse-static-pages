@@ -1,5 +1,5 @@
 export function setup(helper) {
-  helper.whiteList([ 
+  helper.allowList([ 
                   'a.btn',
                   'a.btn btn-primary',
                   'a.btn btn-danger',
