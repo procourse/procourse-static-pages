@@ -4,10 +4,10 @@ import Group from 'discourse/models/group';
 import EmberObject from '@ember/object';
 import { getURLWithCDN } from "discourse-common/lib/get-url";
 
-const StaticPage = EmberObject.extend(Ember.Copyable, {
+const StaticPage = EmberObject.extend({
 
   init: function() {
-    this._super();
+    this._super(...arguments);
   }
 });
 
@@ -39,20 +39,12 @@ StaticPage.reopenClass({
       if (pages){
         pages.forEach((staticPage) => {
           var page = JSON.parse(staticPage.value);
-            staticPages.pushObject(StaticPage.create({
-            id: page.id,
-            title: page.title,
-            active: page.active,
-            slug: page.slug,
-            group: page.group,
-            raw: page.raw,
-            cooked: page.cooked,
-            custom_slug: page.custom_slug,
-            html: page.html,
-            html_content: page.html_content
+          staticPages.pushObject(StaticPage.create({
+            ...page,
+            cooked: page.html ? '' : new Handlebars.SafeString(new PrettyText(getOpts()).cook(page.raw)).string
           }));
         });
-      };
+      }
       staticPages.set('loading', false);
     });
     return staticPages;
@@ -77,15 +69,18 @@ StaticPage.reopenClass({
       else {
         var cooked = new Handlebars.SafeString(new PrettyText(getOpts()).cook(object.raw));
       }
-      data.title = object.title;
-      data.slug = object.slug;
-      data.group = object.group;
-      data.raw = object.raw;
-      data.cooked = cooked.string;
-      data.custom_slug = object.custom_slug;
-      data.html = object.html;
-      data.html_content = object.html_content;
-    };
+      data = {
+        ...data,
+        title: object.title,
+        slug: object.slug,
+        group: object.group,
+        raw: object.raw,
+        cooked: cooked.string,
+        custom_slug: object.custom_slug,
+        html: object.html,
+        html_content: object.html_content
+      };
+    }
 
     return ajax("/procourse-static-pages/admin/pages.json", {
       data: JSON.stringify({"page": data}),
@@ -101,13 +96,15 @@ StaticPage.reopenClass({
         object.set('id', result.id);
         object.set('savingStatus', I18n.t('saved'));
         object.set('saving', false);
-      };
+      }
     });
   },
 
   copy: function(object){
-    var copiedPage = StaticPage.create(object);
-    copiedPage.id = null;
+    var copiedPage = StaticPage.create({
+      ...object,
+      id: null
+    });
     return copiedPage;
   },
 
