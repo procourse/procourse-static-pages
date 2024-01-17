@@ -1,7 +1,8 @@
 import { ajax } from 'discourse/lib/ajax';
 import { default as PrettyText, buildOptions } from 'pretty-text/pretty-text';
 import Group from 'discourse/models/group';
-import EmberObject from '@ember/object';
+import EmberObject, { observer } from '@ember/object';
+import { Array as EmberArray } from '@ember/array';
 import { getURLWithCDN } from "discourse-common/lib/get-url";
 
 const StaticPage = EmberObject.extend({
@@ -22,13 +23,13 @@ function getOpts() {
 }
 
 
-var StaticPages = Ember.ArrayProxy.extend({
-  selectedItemChanged: function() {
+var StaticPages = EmberObject.extend({
+  selectedItemChanged: observer('selectedItem', function() {
     var selected = this.get('selectedItem');
-    this.get('content').forEach((i) => {
-      return i.set('selected', selected === i);
+    Array(this.get('content')).forEach(i => {
+      i.set('selected', selected === i);
     });
-  }.observes('selectedItem')
+  })
 });
 
 StaticPage.reopenClass({
