@@ -42,8 +42,7 @@ StaticPage.reopenClass({
         pages.forEach((staticPage) => {
           var page = JSON.parse(staticPage.value);
           staticPages.pushObject(StaticPage.create({
-            ...page,
-            cooked: page.html ? '' : new Handlebars.SafeString(new PrettyText(getOpts()).cook(page.raw)).string
+            ...page
           }));
         });
       }
