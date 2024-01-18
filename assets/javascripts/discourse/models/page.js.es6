@@ -5,7 +5,12 @@ import EmberObject, { observer } from '@ember/object';
 import { Array as EmberArray } from '@ember/array';
 import { getURLWithCDN } from "discourse-common/lib/get-url";
 
-const StaticPage = EmberObject.extend();
+const StaticPage = EmberObject.extend({
+
+  init: function() {
+    this._super(...arguments);
+  }
+});
 
 function getOpts() {
   const siteSettings = Discourse.__container__.lookup('site-settings:main');
@@ -30,20 +35,20 @@ var StaticPages = EmberObject.extend({
 StaticPage.reopenClass({
 
   findAll: function() {
-    return ajax('/procourse-static-pages/admin/pages.json').then(function(pages) {
-      const staticPages = Array();
-      if (pages) {
+    var staticPages = StaticPages.create({ content: [], loading: true });
+    ajax('/procourse-static-pages/admin/pages.json').then(function(pages) {
+      if (pages){
         pages.forEach((staticPage) => {
           var page = JSON.parse(staticPage.value);
-          const cooked = page.html ? '' : new PrettyText(getOpts()).cook(page.raw).string;
           staticPages.pushObject(StaticPage.create({
             ...page,
-            cooked: cooked
+            cooked: page.html ? '' : new Handlebars.SafeString(new PrettyText(getOpts()).cook(page.raw)).string
           }));
         });
       }
-      return Array(staticPages);
+      staticPages.set('loading', false);
     });
+    return staticPages;
   },
 
   save: function(object, enabledOnly=false) {
