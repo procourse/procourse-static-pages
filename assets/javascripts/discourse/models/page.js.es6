@@ -3,6 +3,7 @@ import { default as PrettyText, buildOptions } from 'pretty-text/pretty-text';
 import Group from 'discourse/models/group';
 import EmberObject, { observer } from '@ember/object';
 import { Array as EmberArray } from '@ember/array';
+import { Handlebars } from 'discourse-common/lib/raw-handlebars';
 import { getURLWithCDN } from "discourse-common/lib/get-url";
 
 const StaticPage = EmberObject.extend({
@@ -67,7 +68,7 @@ StaticPage.reopenClass({
         var cooked = "";
       }
       else {
-        var cooked = new PrettyText(getOpts()).cook(object.raw);
+        var cooked = new Handlebars.SafeString(new PrettyText(getOpts()).cook(object.raw));
       }
       data = {
         ...data,
