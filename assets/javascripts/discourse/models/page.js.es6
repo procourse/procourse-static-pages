@@ -36,7 +36,7 @@ var StaticPages = EmberObject.extend({
 StaticPage.reopenClass({
 
   findAll: function() {
-    var staticPages = StaticPages.create({ content: [], loading: true });
+    var staticPages = Array(StaticPages.create({ content: [], loading: true }));
     ajax('/procourse-static-pages/admin/pages.json').then(function(pages) {
       if (pages){
         pages.forEach((staticPage) => {
