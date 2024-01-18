@@ -1,15 +1,15 @@
 import Page from '../models/page';
 import Controller from '@ember/controller';
-import { observer, computed } from "@ember/object";
+import EmberObject, { observer, computed } from "@ember/object";
 
 export default Controller.extend({
 
   pageURL: document.location.origin + "/page/",
 
   basePCPage: computed('model.@each.id', function() {
-    const page = Em.Object.create({});
-    a.set('title', I18n.t('admin.procourse_static_pages.pages.new_title'));
-    a.set('active', false);
+    const page = EmberObject.create({});
+    page.set('title', I18n.t('admin.procourse_static_pages.pages.new_title'));
+    page.set('active', false);
     return page;
   }),
 
@@ -92,7 +92,7 @@ export default Controller.extend({
 
     newPCPage: function() {
       var basePCPage = this.get('basePCPage');
-      const newPCPage = Em.Object.create(basePCPage);
+      const newPCPage = EmberObject.create(basePCPage);
       var newTitle = I18n.t('admin.procourse_static_pages.pages.new_title');
       newPCPage.set('title', newTitle);
       newPCPage.set('slug', this.slugify(newTitle));
