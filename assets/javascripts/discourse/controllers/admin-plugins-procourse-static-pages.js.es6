@@ -1,30 +1,32 @@
 import Page from '../models/page';
+import Controller from '@ember/controller';
+import EmberObject, { observer, computed } from "@ember/object";
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   pageURL: document.location.origin + "/page/",
 
-  basePCPage: function() {
-    const a = Em.Object.create({});
-    a.set('title', I18n.t('admin.procourse_static_pages.pages.new_title'));
-    a.set('active', false);
-    return a;
-  }.property('model.@each.id'),
+  basePCPage: computed('model.@each.id', function() {
+    const page = EmberObject.create({});
+    page.set('title', I18n.t('admin.procourse_static_pages.pages.new_title'));
+    page.set('active', false);
+    return page;
+  }),
 
   removeSelected: function() {
     this.get('model').removeObject(this.get('selectedItem'));
     this.set('selectedItem', null);
   },
 
-  editTitle: function(){
+  editTitle: observer('selectedItem.title', function() {
     this.set('editingTitle', true);
     if (this.get('selectedItem') && !this.get('selectedItem').custom_slug && this.get('selectedItem').selected){
       this.get('selectedItem').set('slug', this.slugify(this.get('selectedItem').title));
     };
     this.set('editingTitle', false);
-  }.observes('selectedItem.title'),
+  }),
 
-  editSlug: function(){
+  editSlug: observer('selectedItem.slug', function() {
     if (this.get('selectedItem') && !this.get('editingTitle') && this.get('selectedItem').selected){
       if (this.get('originals').slug == this.get('selectedItem').slug){
         this.get('selectedItem').set('custom_slug', this.get('originals').custom_slug);
@@ -33,9 +35,9 @@ export default Ember.Controller.extend({
         this.get('selectedItem').set('custom_slug', true);
       }
     }
-  }.observes('selectedItem.slug'),
+  }),
 
-  changed: function(){
+  changed: observer('selectedItem.title', 'selectedItem.slug', 'selectedItem.group', 'selectedItem.raw', 'selectedItem.html', 'selectedItem.html_content', function() {
     if (!this.get('originals') || !this.get('selectedItem')) {this.set('disableSave', true); return;}
     if (((this.get('originals').title == this.get('selectedItem').title) &&
       (this.get('originals').slug == this.get('selectedItem').slug) &&
@@ -54,7 +56,7 @@ export default Ember.Controller.extend({
     else{
       this.set('disableSave', false);
     };
-  }.observes('selectedItem.title', 'selectedItem.slug', 'selectedItem.group', 'selectedItem.raw', 'selectedItem.html', 'selectedItem.html_content'),
+  }),
 
   slugify: function(text){
     return text.toString().toLowerCase()
@@ -90,7 +92,7 @@ export default Ember.Controller.extend({
 
     newPCPage: function() {
       var basePCPage = this.get('basePCPage');
-      const newPCPage = Em.Object.create(basePCPage);
+      const newPCPage = EmberObject.create(basePCPage);
       var newTitle = I18n.t('admin.procourse_static_pages.pages.new_title');
       newPCPage.set('title', newTitle);
       newPCPage.set('slug', this.slugify(newTitle));
@@ -109,13 +111,13 @@ export default Ember.Controller.extend({
       Page.save(this.get('selectedItem'), true);
     },
 
-    disableEnable: function() {
+    disableEnable: computed('id', 'saving', function() {
       return !this.get('id') || this.get('saving');
-    }.property('id', 'saving'),
+    }),   
 
-    newRecord: function() {
-      return (!this.get('id'));
-    }.property('id'),
+    newRecord: computed('id', function() {
+      return !this.get('id');
+    }),    
 
     save: function() {
       if (this.get('selectedItem').slug == this.slugify(this.get('selectedItem').title)){
